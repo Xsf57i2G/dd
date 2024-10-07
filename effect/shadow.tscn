@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://bms6yjxbsslej"]
+
+[sub_resource type="Gradient" id="Gradient_avey8"]
+offsets = PackedFloat32Array(0.5, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mj7nf"]
+gradient = SubResource("Gradient_avey8")
+width = 8
+height = 8
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.8, 0.2)
+metadata/_snap_enabled = true
+
+[node name="Shadow" type="Decal"]
+texture_albedo = SubResource("GradientTexture2D_mj7nf")
+emission_energy = 0.0
+modulate = Color(0, 0, 0, 1)
+cull_mask = 1048573

@@ -1,0 +1,190 @@
+[gd_scene load_steps=12 format=4 uid="uid://cqnk18ifa64k2"]
+
+[ext_resource type="PackedScene" uid="uid://bgiy44wpi4hdq" path="res://item/item.tscn" id="1_pl86o"]
+[ext_resource type="Script" path="res://item/src/bomb.gd" id="2_1putr"]
+
+[sub_resource type="Animation" id="Animation_w0k7c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shimmer:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:material_overlay:shading_mode")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MeshInstance3D:material_overlay:albedo_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_l0tt4"]
+resource_name = "Boing"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:scale")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector3(1.2, 1, 1.2), Vector3(1, 1.2, 1), Vector3(1.2, 1, 1.2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m7buj"]
+_data = {
+&"RESET": SubResource("Animation_w0k7c"),
+&"Boing": SubResource("Animation_l0tt4")
+}
+
+[sub_resource type="Animation" id="Animation_gxmco"]
+resource_name = "Explode"
+length = 2.0
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"explode"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shimmer:emitting")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MeshInstance3D:material_overlay:albedo_color")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.4, 0.698718, 0.8, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.69835, 1.8, 1.9, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MeshInstance3D:material_overlay:shading_mode")
+tracks/3/interp = 0
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.4, 0.7, 0.8, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.69645, 1.8, 1.90175, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MeshInstance3D:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oo0go"]
+_data = {
+&"Explode": SubResource("Animation_gxmco")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wdqov"]
+transparency = 1
+shading_mode = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mtvtm"]
+next_pass = SubResource("StandardMaterial3D_wdqov")
+transparency = 1
+shading_mode = 2
+vertex_color_use_as_albedo = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4jri6"]
+resource_name = "Material"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+roughness = 0.5
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ax6a8"]
+resource_name = "Bomb_Sphere"
+_surfaces = [{
+"aabb": AABB(-0.433013, 0, -0.5, 0.866025, 1.17011, 1),
+"attribute_data": PackedByteArray("AgUR/6uqKj8AAIA+AAAA/6uqKj8AAAA/AAAA/6uqKj8AAEA/AgUR/wAAAD8AAIA+AAAA/wAAAD8AAAA/AAAA/wAAAD8AAEA/AgUR/6uqqj4AAIA+AAAA/6uqqj4AAAA/AAAA/6uqqj4AAEA/AgUR/6qqKj4AAIA+AAAA/6qqKj4AAAA/AAAA/6qqKj4AAEA/AAAA/6yqqj0AAIA/AAAA/wAAgD4AAIA/AAAA/1VV1T4AAIA/AAAA/1VVFT8AAIA/AAAA////Pz8AAIA/AAAA/6uqaj8AAIA/UWWL/4hHGT80aQE+UWWL/4hHGT80aQE+UWWL/4hHGT80aQE+UWWL/4hHGT80aQE+AgUR/wAAAAAAAIA+AgUR////fz8AAIA+AAAA/wAAAAAAAAA/AAAA////fz8AAAA/AAAA/wAAAAAAAEA/AAAA////fz8AAEA/AgUR/1VVVT8AAIA+AAAA/1VVVT8AAAA/AAAA/1VVVT8AAEA/AgUR/xjJKD0waQE+AgUR/25zdT8waQE+AgUR/2V4AD4waQE+AgUR//DcVD4waQE+AgUR/4iRlT4waQE+AgUR/87Dvz4waQE+AgUR/93m6j4waQE+AgUR/5KMCj8waQE+AgUR/xoeID8waQE+AgUR/zw3NT8waQE+AgUR/8TISj8waQE+AgUR/+bhXz8waQE+UWWL/wCU+D4saQE+UWWL/wCU+D4saQE+UWWL//KY6T44aQE+UWWL//KY6T44aQE+UWWL/4bNAT8saQE+UWWL/4bNAT8saQE+UWWL/wPEEz8waQE+UWWL/w7FID80aQE+UWWL/w7FID80aQE+UWWL/xoeID8waQE+UWWL/xoeID8waQE+UWWL/xoeID8waQE+UWWL/zw3NT8waQE+UWWL/8TISj8waQE+UWWL/8TISj8waQE+UWWL/8TISj8waQE+UWWL/8TISj8waQE+UWWL/+bhXz8waQE+UWWL/93m6j4waQE+UWWL/93m6j4waQE+UWWL/93m6j4waQE+UWWL/5KMCj8waQE+UWWL/4iRlT4waQE+UWWL/4iRlT4waQE+UWWL/4iRlT4waQE+UWWL/87Dvz4waQE+UWWL/2V4AD4waQE+UWWL/2V4AD4waQE+UWWL/2V4AD4waQE+UWWL/2V4AD4waQE+UWWL//DcVD4waQE+UWWL/xjJKD0waQE+UWWL/25zdT8waQE+UWWL/25zdT8waQE+UWWL/25zdT8waQE+AAAA/4hHGT80aQE+AAAA/wCU+D4saQE+AAAA/wCU+D4saQE+AAAA//KY6T44aQE+AAAA//KY6T44aQE+AAAA/4bNAT8saQE+AAAA/4bNAT8saQE+AAAA/wPEEz8waQE+AAAA/w7FID80aQE+"),
+"format": 34359742495,
+"index_count": 246,
+"index_data": PackedByteArray("AwAGACQAAwAkACUAJQAkAEQAJQBEAD0AAwAHAAYABgAHAAoAAwAEAAcABgAKAAkAIwAGAAkACAAKAAcABAAIAAcAIwBJAEIAIwAiAEkAIwAJACIACQAKABgACQAYABYACQAWAB8ACQAfACEAIQAfAEoAIQBKAEYACwAYAAoACAALAAoACwAaABgADAAaAAsADQALAAgADgAIAAUABAAFAAgADwAFAAIAAQAFAAQAAQACAAUAAAABAAQAAAAEAAMAHgACAAEAEAACAB4AAAADACYAAAAmACcAJwAmAEAAJwBAADQAEQAeABsAGQAbAB4AGQAeAB0AHgABAB0AFwAZAB0AHAAdAAEAFwAdABwAHAABAAAAFwAcACoAKQAcAAAAFwAqACAAIAAqADwAIAA8AEwAKQAAACgAKQAoADcAKQA3ADkAMwA7ADUAMwA1ADEALwAxADUAMwAxAFUAMQAvAFQAMQBUAFUAMwBVAFYAVABWAFUAFAAzAFYALwBSAFQAVgBUAE4AFABWAE4ATgBUAFAALAAUAE4ALABOAFAAFAAsAEcALQAsAFAALQBQAFIALwAtAFIALQAvAD8ALQA/AEEAKwAuAEMAKwBDAEUAEgBLADoAMAA2AD4AFQBIAE0AEwA4ADIATwBTAFEA"),
+"material": SubResource("StandardMaterial3D_4jri6"),
+"name": "Material",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 87,
+"vertex_data": PackedByteArray("AAAAAHqCWj/zBLW+AAAAAAAAAD8AAAC/AAAAABr2FT7zBLW+ccScPnqCWj/yBDW+2LPdPgAAAD///3++ccScPhr2FT7yBDW+cMScPnqCWj/2BDU+17PdPgAAAD8CAIA+cMScPhr2FT72BDU+AACgs3qCWj/zBLU+AACgswAAAD8AAAA/AACgsxr2FT7zBLU+AAAAAAAAAAAAAACAAAAAAAAAAAAAAACAAAAAAAAAAAAAAACAAAAAAAAAAAAAAACAAAAAAAAAAAAAAACAAAAAAAAAAAAAAACAbKCFvaKigT94TBo9bKCFvaKigT94TBo9bKCFvaKigT94TBo9bKCFvaKigT94TBo9csScvnqCWj/uBDU+csScvnqCWj/uBDU+2bPdvgAAAD/7/38+2bPdvgAAAD/7/38+csScvhr2FT7uBDU+csScvhr2FT7uBDU+b8ScvnqCWj/6BDW+1rPdvgAAAD8EAIC+b8Scvhr2FT76BDW+zn4evlgMbT+4A7c9zn4evlgMbT+4A7c9e8Mhs1gMbT++Azc+e8Mhs1gMbT++Azc+zH4ePlgMbT/BA7c9zH4ePlgMbT/BA7c9zH4ePlgMbT+9A7e9zH4ePlgMbT+9A7e9AAAAAFgMbT++Aze+AAAAAFgMbT++Aze+y34evlgMbT/FA7e9y34evlgMbT/FA7e9gCaBLqKigT96TJo9gCaBLqKigT96TJo9a6CFPaKigT+BTBo9a6CFPaKigT+BTBo9aKCFPaKigT95TBq9aKCFPaKigT95TBq9wtbFsqKigT98TJq9aqCFvaKigT+JTBq9aqCFvaKigT+JTBq9AAAAAKKigT++Aze+AAAAAKKigT++Aze+AAAAAKKigT++Aze+AAAAAKKigT++Aze+y34evqKigT/FA7e9y34evqKigT/FA7e9y34evqKigT/FA7e9y34evqKigT/FA7e9y34evqKigT/FA7e9zH4ePqKigT+9A7e9zH4ePqKigT+9A7e9zH4ePqKigT+9A7e9zH4ePqKigT+9A7e9zH4ePqKigT/BA7c9zH4ePqKigT/BA7c9zH4ePqKigT/BA7c9zH4ePqKigT/BA7c9e8Mhs6KigT++Azc+e8Mhs6KigT++Azc+e8Mhs6KigT++Azc+e8Mhs6KigT++Azc+e8Mhs6KigT++Azc+zn4evqKigT+4A7c9zn4evqKigT+4A7c9zn4evqKigT+4A7c9zn4evqKigT+4A7c9bKCFvTLGlT94TBo9gCaBLjLGlT96TJo9gCaBLjLGlT96TJo9a6CFPTLGlT+BTBo9a6CFPTLGlT+BTBo9aKCFPTLGlT95TBq9aKCFPTLGlT95TBq9wtbFsjLGlT98TJq9aqCFvTLGlT+JTBq99sT//wAA/7//////AAD/v/bEAAAAAP+/r84bzgAAkuj//9muAACS6K/O4zEAAJLo4rFPsf//kugl0f9///+S6OKxr07//5Lo/38Iu////7//f/9/////v/9/9kT///+//38AACXR/7//fwAA//9s1/9/AAD//////38AAAAAbNf/fwAA2S7/v/9/AAD/f/+/2VnSw9CMZUvZWdLDyxaW+dlZ0sMUCycP2VnSw/wSpZ4cTk+xULR7yhxOT7Gkl0+02S7/f9mu/7/ZLv9/2a7/vxxOr05QtIK1HE6vTqaXrstPMRvOJVH/vwAA2a4lUf+/TzHjMSVR/79sTs2xibR+ymxOzbFVl0W0/3+Nu2jTE7T/f427J+hK1pKxzbEA60SakrHNsY3oU/QxzmvOcxeqizHOa87+FLnlccT//9cXs6lxxP//lizry80xa851S4C1zTFrzqlot8v/f5jNIeRi4/9/mM34KPgLJabSw5shNgYlptLDMi192Su82NkPSEorK7zY2fwSWeFmsv//mM3+f9ND2Nkz6WiG00PY2Q85009SyP//////P1LI//9cNTdvUsj//+gX1qpSyP//////PyIuGcwx6dKMIi4ZzP///z8iLhnMWGaZNCIuGcwNTVxKIi4ZzP///z/c0RnM////P9zRGcy4FIXm3NEZzMsuCxzc0RnM////P+WzIq4x6dMM5bMirv///z/lsyKuozam+OWzIq7///8//3+stxboJ9X/f6y3////P/9/rLcfNzgP/3+st+gXJ9X/f6y3////PxlMIq7///8/GUwirqaZZksZTCKu////PxlMIq64FHiZGUwiru4lywX/f6y30NQ15v9/rLfQ1MkZ5bMirv//kujlsyKu////P9zRGcyQzMmB3NEZzDUieHhSyP//rLf+fyIuGcwx6Sxz")
+}]
+
+[node name="Bomb" instance=ExtResource("1_pl86o")]
+script = ExtResource("2_1putr")
+
+[node name="CollisionShape3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="AnimationPlayer" parent="." index="3"]
+libraries = {
+&"": SubResource("AnimationLibrary_m7buj"),
+&"Bomb": SubResource("AnimationLibrary_oo0go")
+}
+
+[node name="MeshInstance3D" parent="." index="4"]
+material_overlay = SubResource("StandardMaterial3D_mtvtm")
+mesh = SubResource("ArrayMesh_ax6a8")
+
+[node name="Fuse" type="Timer" parent="." index="5"]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Fuse" to="." method="_on_fuse_timeout"]

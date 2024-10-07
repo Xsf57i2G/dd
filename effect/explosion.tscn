@@ -1,0 +1,173 @@
+[gd_scene load_steps=19 format=3 uid="uid://b3sn4sdqdtsv6"]
+
+[ext_resource type="Script" path="res://effect/src/explosion.gd" id="1_loreq"]
+[ext_resource type="AudioStream" uid="uid://bact4gtpw7eet" path="res://effect/explosion.wav" id="2_d4lgy"]
+
+[sub_resource type="Gradient" id="Gradient_civrs"]
+offsets = PackedFloat32Array(0, 0.333333, 0.5, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 0.156863, 0, 1, 1, 0.501961, 0, 1, 0, 0, 0, 1)
+metadata/_snap_enabled = true
+metadata/_snap_count = 6
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_d0qdo"]
+gradient = SubResource("Gradient_civrs")
+width = 8
+height = 8
+fill_from = Vector2(0.5, 0.2)
+fill_to = Vector2(0.5, 0.8)
+metadata/_snap_enabled = true
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_3b26x"]
+texture = SubResource("GradientTexture2D_d0qdo")
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_8ynv5"]
+input_name = "time"
+
+[sub_resource type="Gradient" id="Gradient_bte2l"]
+offsets = PackedFloat32Array(0.25, 1)
+metadata/_snap_enabled = true
+metadata/_snap_count = 4
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_l0jj6"]
+frequency = 0.05
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cqecc"]
+width = 64
+height = 64
+seamless_blend_skirt = 1.0
+color_ramp = SubResource("Gradient_bte2l")
+noise = SubResource("FastNoiseLite_l0jj6")
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_jk3di"]
+texture = SubResource("NoiseTexture2D_cqecc")
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_gv10f"]
+input_name = "normal"
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_ewsmb"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_bd4af"]
+default_input_values = [1, Vector2(0.5, 0.5), 2, Vector2(0, 0)]
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_guf7o"]
+default_input_values = [0, 0.0, 1, 2.0]
+
+[sub_resource type="VisualShader" id="VisualShader_mdaem"]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx;
+
+uniform sampler2D tex_vtx_3;
+uniform sampler2D tex_frg_2;
+
+
+
+void vertex() {
+// Input:2
+	float n_out2p0 = TIME;
+
+
+// UVFunc:8
+	vec2 n_in8p1 = vec2(0.50000, 0.50000);
+	vec2 n_out8p0 = vec2(n_out2p0) * n_in8p1 + UV;
+
+
+// Texture2D:3
+	vec4 n_out3p0 = texture(tex_vtx_3, n_out8p0);
+
+
+// FloatOp:9
+	float n_in9p1 = 2.00000;
+	float n_out9p0 = n_out3p0.x + n_in9p1;
+
+
+// Input:4
+	vec3 n_out4p0 = NORMAL;
+
+
+// VectorOp:5
+	vec3 n_out5p0 = vec3(n_out9p0) * n_out4p0;
+
+
+// Output:0
+	VERTEX = n_out5p0;
+
+
+}
+
+void fragment() {
+// Texture2D:2
+	vec4 n_out2p0 = texture(tex_frg_2, UV);
+
+
+// Output:0
+	ALBEDO = vec3(n_out2p0.xyz);
+	ALPHA = n_out2p0.x;
+	EMISSION = vec3(n_out2p0.xyz);
+
+
+}
+"
+graph_offset = Vector2(-407.214, -126.252)
+modes/diffuse = 2
+nodes/vertex/0/position = Vector2(-120, 220)
+nodes/vertex/2/node = SubResource("VisualShaderNodeInput_8ynv5")
+nodes/vertex/2/position = Vector2(-1600, 280)
+nodes/vertex/3/node = SubResource("VisualShaderNodeTexture_jk3di")
+nodes/vertex/3/position = Vector2(-920, 80)
+nodes/vertex/4/node = SubResource("VisualShaderNodeInput_gv10f")
+nodes/vertex/4/position = Vector2(-1600, 460)
+nodes/vertex/5/node = SubResource("VisualShaderNodeVectorOp_ewsmb")
+nodes/vertex/5/position = Vector2(-400, 160)
+nodes/vertex/8/node = SubResource("VisualShaderNodeUVFunc_bd4af")
+nodes/vertex/8/position = Vector2(-1220, 180)
+nodes/vertex/9/node = SubResource("VisualShaderNodeFloatOp_guf7o")
+nodes/vertex/9/position = Vector2(-660, 180)
+nodes/vertex/connections = PackedInt32Array(4, 0, 5, 1, 8, 0, 3, 0, 5, 0, 0, 0, 3, 0, 9, 0, 9, 0, 5, 0, 2, 0, 8, 2)
+nodes/fragment/0/position = Vector2(400, 220)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_3b26x")
+nodes/fragment/2/position = Vector2(80, 120)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 5, 2, 0, 0, 0, 2, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d07ua"]
+render_priority = 0
+shader = SubResource("VisualShader_mdaem")
+
+[sub_resource type="SphereMesh" id="SphereMesh_8e7yw"]
+material = SubResource("ShaderMaterial_d07ua")
+radial_segments = 8
+rings = 8
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_icydi"]
+radius = 3.0
+
+[node name="Explosion" type="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+collision_layer = 0
+collision_mask = 7
+script = ExtResource("1_loreq")
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+layers = 2
+cast_shadow = 0
+mesh = SubResource("SphereMesh_8e7yw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_icydi")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_d4lgy")
+autoplay = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+autostart = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(1, 0.501961, 0, 1)
+light_energy = 5.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

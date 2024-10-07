@@ -1,0 +1,79 @@
+[gd_scene load_steps=10 format=3 uid="uid://d33g722n4jnnx"]
+
+[ext_resource type="Script" path="res://world/src/level_1.gd" id="1_8y0mm"]
+[ext_resource type="PackedScene" uid="uid://cqcevxaggb87f" path="res://world/pc.tscn" id="4_1cv6s"]
+[ext_resource type="PackedScene" uid="uid://bqldvl6nmo3vu" path="res://item/torch.tscn" id="5_xriug"]
+[ext_resource type="PackedScene" uid="uid://bvjvuhuid262j" path="res://item/chest.tscn" id="6_gs55c"]
+[ext_resource type="PackedScene" uid="uid://cqnk18ifa64k2" path="res://item/bomb.tscn" id="6_jmc60"]
+[ext_resource type="PackedScene" uid="uid://dgdb3mse5wgr0" path="res://item/key.tscn" id="7_r6nid"]
+[ext_resource type="PackedScene" uid="uid://b84qa27crcwxr" path="res://world/ladder.tscn" id="8_e3s7c"]
+[ext_resource type="PackedScene" uid="uid://7ngy02eiu3q5" path="res://demon.tscn" id="8_ubrg3"]
+
+[sub_resource type="Environment" id="Environment_34xv5"]
+glow_enabled = true
+glow_normalized = true
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0, 0, 0, 1)
+fog_light_energy = 0.0
+fog_density = 1.0
+fog_sky_affect = 0.0
+fog_depth_end = 20.0
+
+[node name="Level 1" type="Node3D"]
+script = ExtResource("1_8y0mm")
+metadata/_edit_group_ = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_34xv5")
+
+[node name="Bomb" parent="." instance=ExtResource("6_jmc60")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 0, 31)
+
+[node name="Chest" parent="." instance=ExtResource("6_gs55c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.1839, 0, 31.7616)
+
+[node name="Key" parent="." instance=ExtResource("7_r6nid")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.8567, 0, 33.3426)
+
+[node name="Demon" parent="." instance=ExtResource("8_ubrg3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 33)
+
+[node name="Skeleton3D" parent="Demon/Armature" index="0"]
+bones/0/position = Vector3(0, 0.6048, 0)
+bones/1/position = Vector3(0.1589, 0.00287236, 0.000175107)
+bones/1/rotation = Quaternion(0.705493, -0.0416027, 0.7054, -0.0544073)
+bones/1/scale = Vector3(1, 1, 0.999978)
+bones/2/position = Vector3(5.60341e-09, 0.230277, -1.45906e-08)
+bones/3/position = Vector3(-0.1589, -0.00287224, -0.000175107)
+bones/3/rotation = Quaternion(-0.7054, -0.0544052, 0.705492, 0.0416025)
+bones/4/position = Vector3(-8.69937e-09, 0.230277, 1.71753e-08)
+bones/4/scale = Vector3(1, 1, 1)
+bones/5/position = Vector3(5.62977e-10, 0.136421, -6.04814e-11)
+bones/6/position = Vector3(-9.02219e-10, 0.246197, -7.49424e-10)
+bones/7/position = Vector3(4.22006e-10, 0.430726, -1.01863e-10)
+bones/8/position = Vector3(7.43312e-08, 0.619719, 2.79397e-09)
+bones/9/position = Vector3(5.52973e-08, 0.276129, -3.72529e-09)
+bones/10/position = Vector3(7.567e-08, 0.371015, -2.32831e-10)
+bones/11/position = Vector3(0.00985884, 0.430642, 0.000246723)
+bones/12/position = Vector3(-7.41566e-08, 0.619719, 6.51926e-09)
+bones/13/position = Vector3(6.37956e-08, 0.276129, 3.72529e-09)
+bones/13/rotation = Quaternion(0.0477303, 0.0195103, 0.0179296, 0.998509)
+bones/14/position = Vector3(-9.05711e-08, 0.371015, 5.58794e-09)
+bones/15/position = Vector3(4.22006e-10, 0.430726, -1.01863e-10)
+bones/16/position = Vector3(-2.04551e-10, 0.288621, 3.37961e-10)
+bones/16/rotation = Quaternion(2.2265e-10, 3.88104e-17, 4.09518e-10, 1)
+bones/16/scale = Vector3(1, 1, 1)
+
+[node name="Torch" parent="." instance=ExtResource("5_xriug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.4186, 0, 30.7618)
+
+[node name="PC" parent="." instance=ExtResource("4_1cv6s")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 30, 0, 30)
+
+[node name="Ladder" parent="." instance=ExtResource("8_e3s7c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, 30)
+
+[connection signal="died" from="Demon" to="." method="_on_demon_died"]
+
+[editable path="Demon"]

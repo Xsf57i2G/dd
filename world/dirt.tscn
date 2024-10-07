@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=4 uid="uid://di0yeltrfn1tb"]
+
+[ext_resource type="PackedScene" uid="uid://crkawt7e4ayhp" path="res://world/voxel.tscn" id="1_rlwpl"]
+
+[sub_resource type="Gradient" id="Gradient_uwis5"]
+colors = PackedColorArray(0.252028, 0.252028, 0.252028, 1, 0.501961, 0.501961, 0.501961, 1)
+metadata/_snap_enabled = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_uax4j"]
+noise_type = 0
+frequency = 0.4
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_bl78q"]
+width = 8
+height = 8
+seamless = true
+seamless_blend_skirt = 1.0
+color_ramp = SubResource("Gradient_uwis5")
+noise = SubResource("FastNoiseLite_uax4j")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hch0k"]
+resource_name = "Material"
+shading_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.9, 0.69, 0.45, 1)
+albedo_texture = SubResource("NoiseTexture2D_bl78q")
+uv1_triplanar = true
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_06xu4"]
+resource_name = "Voxel_Cube"
+_surfaces = [{
+"aabb": AABB(-0.5, 0, -0.5, 1, 1, 1),
+"attribute_data": PackedByteArray("//////+f/3///////5//f///////n/9/AAAA//9f/38AAAD//1//fwAAAP//X/9///////+f/z///////5//P///////n/8/AAAA//9f/z8AAAD//1//PwAAAP//X/8///////+f/7///////9//f///////n/+/AAAA//9f/78AAAD//x//fwAAAP//X/+///////+fAAD//////9//P///////n///AAAA//9fAAAAAAD//x//PwAAAP//X///"),
+"format": 34896613407,
+"index_count": 36,
+"index_data": PackedByteArray("DQABAAcADQAHABMABgAJABUABgAVABIAFAAXABEAFAARAA4ABAAQABYABAAWAAoAAgAFAAsAAgALAAgADAAPAAMADAADAAAA"),
+"material": SubResource("StandardMaterial3D_hch0k"),
+"name": "Material",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("/////wAA////////AAD///////8AAP////8AAAAA/////wAAAAD/////AAAAAP///////////7////////////////////////8AAP///7///wAA////////AAD/////AAD//wAA//8AAP//AAD//wAA//8AAP+/AAAAAAAA//8AAAAAAAD//wAAAAAAAP+/AAD//////78AAP///////wAA//////+/AAAAAP///78AAAAA/////wAAAAD///+//z//v/9//7//v/9//z//v/9//z//v/9//3//f/9//7//v/9//3//f/9//z//v/9//z//v/9//7//f////z//v/9//z//f////3//f/9//7//f////3//f/9//z//f///")
+}]
+
+[node name="Dirt" instance=ExtResource("1_rlwpl")]
+
+[node name="MeshInstance3D" parent="." index="1"]
+mesh = SubResource("ArrayMesh_06xu4")

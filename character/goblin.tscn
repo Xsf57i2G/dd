@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=4 uid="uid://dqfbgpcum6us7"]
+
+[ext_resource type="PackedScene" uid="uid://t2jb5av27xux" path="res://character/character.tscn" id="1_8b0am"]
+[ext_resource type="Script" path="res://character/src/goblin.gd" id="2_mhjdf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b3qlu"]
+resource_name = "Material"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+roughness = 0.5
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_41o35"]
+resource_name = "Character_Sphere"
+_surfaces = [{
+"aabb": AABB(-0.606218, 0, -0.7, 1.21244, 2, 1.4),
+"attribute_data": PackedByteArray("/////6qq/z//////qqr/f/////+qqv+///////9//z///////3//f///////f/+//////1VV/z//////VVX/f/////9VVf+//////6oq/z//////qir/f/////+qKv+/AAAA/1UV//8AAAD//z///wAAAP+qav//AAAA/1SV//8AAAD//7///wAAAP+p6v///////1UVAAD//////z8AAP////+qagAA/////1SVAAD//////78AAP////+p6gAA/////wAA/z///////v//P/////8AAP9///////7//3//////AAD/v//////+//+//////1TV/z//////VNX/f/////9U1f+/"),
+"format": 34896613407,
+"index_count": 108,
+"index_data": PackedByteArray("AgAFAAQADwAFAAIADgAIAAUABQAIAAcABQAHAAQACAAKAAcAAgAEAAEADQALAAgACAALAAoADAAcAAsACwAcABoACwAaAAoACQAKABoACQAaABgACQAYABIABgAKAAkABgAHAAoABgAJABMAAwAHAAYAAwAGABQAAwAEAAcAAAAEAAMAAAADABUAAAABAAQAHgABAAAAHgAAABYAHgAfAAEAHwACAAEAGQAfAB4AGQAeABcAGQAbAB8AHwAgAAIAGwAgAB8AEAACACAAGwAdACAAEQAgAB0A"),
+"material": SubResource("StandardMaterial3D_b3qlu"),
+"name": "Material",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 33,
+"vertex_data": PackedByteArray("/3+B2n0lXPL/f/9/AAD///9/fSV9JVzygdqB2r5So/3///9//z9I+oHafSW+UrD8gdqB2kCtvv3+//9//78W9oHafSVArUDt/3+B2oHaPdH/f/9/////v/9/fSWB2j3R/38AAP9/////fwAA/3////9/AAD/f////38AAP9/////fwAA/3////9/AAD/f////3////9/////f////3////9/////f////3////9/////f////3////9/////f///fSWB2kCt58B9JYHaQK3nwAAA/3//vwisAAD/f/+/CKx9JX0lQK0Qwn0lfSVArRDCfSWB2r5SduUAAP9//z/L1X0lfSW+UiLb4784LP8//78bQMbThrMKpHfKdnUJI4nLCKOZmYqssnklmk1c1pHcmf9//38obiJm/3//P/9//z//f/8//3//P/9//z//f/8//3//v/9//7//f/+//3//v/9//7//f/+/9IT4wfSE+MHwclHc8HJR3M1BefzNQXn8MmxGxjFxpeiXWgT9")
+}]
+blend_shape_mode = 0
+
+[node name="Goblin" instance=ExtResource("1_8b0am")]
+script = ExtResource("2_mhjdf")
+
+[node name="CollisionShape3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
+layers = 2
+cast_shadow = 0
+mesh = SubResource("ArrayMesh_41o35")
+skeleton = NodePath("")
+
+[node name="Armored" type="Timer" parent="." index="4"]
+one_shot = true
+
+[node name="Wander" parent="." index="6"]
+one_shot = true
+
+[connection signal="timeout" from="Armored" to="." method="_on_armored_timeout"]

@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=4 uid="uid://bvjvuhuid262j"]
+
+[ext_resource type="PackedScene" uid="uid://bgiy44wpi4hdq" path="res://item/item.tscn" id="1_lwnhj"]
+[ext_resource type="Script" path="res://item/src/chest.gd" id="2_8rbnd"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_o600h"]
+points = PackedVector3Array(0, 1.2, 0.6, 0, 1.2, -0.6, -0.424276, 1.02416, 0.6, 0.424158, 1.02416, 0.6, 0.424158, 1.02416, -0.6, -0.424276, 1.02416, -0.6, -0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, -0.6, -0.6, 0.6, -0.6, -0.6, 0, 0.6, 0.6, 0, 0.6, 0.6, 0, -0.6, -0.6, 0, -0.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_doait"]
+resource_name = "Material"
+shading_mode = 2
+vertex_color_use_as_albedo = true
+roughness = 0.5
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_4t2vb"]
+resource_name = "Chest_Cylinder"
+_surfaces = [{
+"aabb": AABB(-0.48, 0, -0.48, 0.96, 0.96, 0.96),
+"attribute_data": PackedByteArray("/34A/wAAQD8AAEA//34A/wAAgD4AAEA//34A/wAAQD9cjwI//34A/wAAAAAAAAA//34A/wAAgD8AAAA//34A/wAAgD5cjwI//34A/wAAAAAAAAAA/34A/wAAgD8AAAAA/34A/9Rxaz8sjhQ//34A/wAAYD8AAAA//34A/6jj1j4sjhQ//34A/wAAYD8AAAAA/34A/6RwfT8AAEA//34A/wAAQD8AAAA//34A/0jh+j4AAEA//34A/wAAQD8AAAAAAAAA/xDXIzwAAEA/AAAA/wAAgD4AAAAAAAAA/1yPAj8AAEA/AAAA/wAAgD4AAAA/AAAA/0jh+j4AAEA/AAAA/wAAQD8AAAAAAAAA/6RwfT8AAEA/AAAA/wAAQD8AAAA/AAAA/wAAgD4AAEA/AAAA/wAAQD8AAEA//34A/1yPAj8AAEA//34A/wAAgD4AAAA//34A/xDXIzwAAEA//34A/wAAgD4AAAAA/34A/yyOFD8sjhQ//34A/wAAAD4AAAA//34A/2JxpD0sjhQ//34A/wAAAD4AAAAA"),
+"format": 34359742495,
+"index_count": 84,
+"index_data": PackedByteArray("AAAIAAIAAAACAB4AAAAeABoAAAAaABIAAAAMAAgAAAASABkADAAAABkADAAZABYAAQAFAAoAAQAgAAUAAQAKAA4AAQAOABQAAQAcACAAAQAUABgAHAABABgAHAAYABAABwAEAAkABwAJAAsACwAJAA0ACwANAA8ADwANABcADwAXABUAGwAdABEAGwARABMAHQAbAB8AHQAfACEAIQAfAAMAIQADAAYA"),
+"material": SubResource("StandardMaterial3D_doait"),
+"name": "Material",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 34,
+"vertex_data": PackedByteArray("kMJ1pZDC9T6QwvW+kMJ1pZDC9T6QwvU+kMJ1pZDCdT+PwvW+kMJ1pZDCdT+PwvW+kMJ1pZDCdT+PwvW+kMJ1pZDCdT+QwvU+kMJ1pZDCdT+QwvU+kMJ1pZDCdT+QwvU+T8etPvDEUT+PwvW+T8etPvDEUT+PwvW+T8etPvDEUT+QwvU+T8etPvDEUT+QwvU+j8L1PpDC9T6QwvW+j8L1PpDC9T6QwvW+j8L1PpDC9T6QwvU+j8L1PpDC9T6QwvU+j8L1vgAAAACQwvU+j8L1vgAAAACQwvU+j8L1vgAAAACQwvW+j8L1vgAAAACQwvW+j8L1PgAAAACQwvU+j8L1PgAAAACQwvU+j8L1PgAAAACQwvW+j8L1PgAAAACQwvW+kMJ1pQAAAACQwvU+kMJ1pQAAAACQwvW+j8L1vpDC9T6QwvW+j8L1vpDC9T6QwvW+j8L1vpDC9T6QwvU+j8L1vpDC9T6QwvU+T8etvvDEUT+PwvW+T8etvvDEUT+PwvW+T8etvvDEUT+QwvU+T8etvvDEUT+QwvU+/////////z//f/9/////v/////////8//3///wAA/7//f///AAD/v/9//3////+//3///wAA/7//f///AAD/v/////////8//7//v/8//9//f/9/////v/+//7//P//f/////////z/C6jyVwmpg9f9//3////+/wuo8lcJqYPX/f/9/////PwAA/3////+//////////z8AAP9/////v/9//3////8/////f////7//////////P////3////+//3//f////z//////////P/////////8/PBU8lcJqnYr/f/9/////vzwVPJXCap2K/////////z//P/+//z//n/9//3////+//z//v/8//58=")
+}]
+
+[node name="Chest" instance=ExtResource("1_lwnhj")]
+script = ExtResource("2_8rbnd")
+
+[node name="CollisionShape3D" parent="." index="0"]
+shape = SubResource("ConvexPolygonShape3D_o600h")
+
+[node name="Shadow" parent="." index="1"]
+size = Vector3(4, 2, 4)
+
+[node name="MeshInstance3D" parent="." index="4"]
+mesh = SubResource("ArrayMesh_4t2vb")
+
+[node name="Area3D" type="Area3D" parent="." index="5"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" index="0"]
+shape = SubResource("ConvexPolygonShape3D_o600h")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

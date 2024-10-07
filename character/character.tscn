@@ -1,0 +1,71 @@
+[gd_scene load_steps=13 format=3 uid="uid://t2jb5av27xux"]
+
+[ext_resource type="Script" path="res://character/src/character.gd" id="1_n2ttj"]
+[ext_resource type="PackedScene" uid="uid://bms6yjxbsslej" path="res://effect/shadow.tscn" id="2_t8n34"]
+[ext_resource type="AudioStream" uid="uid://dal18dvpl1oqc" path="res://character/sfx/scream_1.wav" id="3_83d1i"]
+[ext_resource type="AudioStream" uid="uid://28aq6xikg01v" path="res://character/sfx/step.wav" id="3_g31gg"]
+[ext_resource type="AudioStream" uid="uid://bq820mxnmuqx0" path="res://character/sfx/scream_2.wav" id="4_6ew3n"]
+[ext_resource type="AudioStream" uid="uid://dss1vcf7bce6q" path="res://character/sfx/scream_3.wav" id="5_uccd1"]
+[ext_resource type="AudioStream" uid="uid://by7ujx1fhn7kc" path="res://character/sfx/scream_4.wav" id="6_hw4ss"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_le3td"]
+friction = 0.8
+bounce = 0.5
+absorbent = true
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3iway"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7jw0v"]
+radius = 8.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_y0nnl"]
+streams_count = 1
+stream_0/stream = ExtResource("3_g31gg")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_3hnyn"]
+streams_count = 4
+stream_0/stream = ExtResource("3_83d1i")
+stream_1/stream = ExtResource("4_6ew3n")
+stream_2/stream = ExtResource("5_uccd1")
+stream_3/stream = ExtResource("6_hw4ss")
+
+[node name="Character" type="RigidBody3D"]
+collision_layer = 8
+physics_material_override = SubResource("PhysicsMaterial_le3td")
+sleeping = true
+lock_rotation = true
+script = ExtResource("1_n2ttj")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_3iway")
+
+[node name="Shadow" parent="." instance=ExtResource("2_t8n34")]
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_7jw0v")
+
+[node name="Wake" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="Wander" type="Timer" parent="."]
+
+[node name="Step" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_y0nnl")
+volume_db = -10.0
+
+[node name="Timer" type="Timer" parent="Step"]
+one_shot = true
+
+[node name="Hurt" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_3hnyn")
+
+[node name="Invulnerability" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Wake" to="." method="_on_wake_timeout"]

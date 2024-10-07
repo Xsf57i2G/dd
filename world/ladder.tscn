@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://b84qa27crcwxr"]
+
+[ext_resource type="PackedScene" uid="uid://xqnwvnmvuw4" path="res://blend/Ladder.blend" id="1_7idyu"]
+[ext_resource type="PackedScene" uid="uid://bms6yjxbsslej" path="res://effect/shadow.tscn" id="2_md58u"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mud6m"]
+size = Vector3(2, 2, 2)
+
+[node name="Ladder" instance=ExtResource("1_7idyu")]
+
+[node name="Ladder" parent="." index="0"]
+layers = 2
+
+[node name="Area3D" type="Area3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_mud6m")
+
+[node name="Shadow" parent="." index="2" instance=ExtResource("2_md58u")]
+size = Vector3(4, 2, 4)
+upper_fade = 0.0
+lower_fade = 0.0
