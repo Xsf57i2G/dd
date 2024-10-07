@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=4 uid="uid://c5ygel00tbp3"]
+
+[ext_resource type="PackedScene" uid="uid://dx68fkrl1ubly" path="res://blend/Gib.blend" id="1_ty01b"]
+[ext_resource type="PackedScene" uid="uid://d0iw33lj7du8y" path="res://effect/blood.tscn" id="2_u8grx"]
+[ext_resource type="PackedScene" uid="uid://bms6yjxbsslej" path="res://effect/shadow.tscn" id="3_6fj27"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2mxq0"]
+bounce = 1.0
+absorbent = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l4hrr"]
+resource_name = "Material"
+shading_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.566601, 0.134466, 0.134466, 1)
+roughness = 0.5
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_e06rq"]
+resource_name = "Gib_Cube_001"
+_surfaces = [{
+"aabb": AABB(-0.291924, -0.247769, -0.282414, 0.59923, 0.423397, 0.581259),
+"attribute_data": PackedByteArray("Ep8ZpEC5/4dAuf//FZO/uEC5Pufv2Krbxf3/v0C5VKU6vkbH7sFhyijUZ7ko1Ge5Vsy8+FbM/39s36v4bN+fhP//Uqcw0ciZ"),
+"format": 34896613399,
+"index_count": 42,
+"index_data": PackedByteArray("DAACAAQADAAEAAUADgAMAAUABAAJAAUACQAKAAUACAAHAAsACAAAAAcAAwAAAAgACwAHABEABwABABEAEQABAA0AEQANAA8AEAALABEACwAQAAYA"),
+"material": SubResource("StandardMaterial3D_l4hrr"),
+"name": "Material",
+"primitive": 3,
+"uv_scale": Vector4(1.67668, 2, 0, 0),
+"vertex_count": 18,
+"vertex_data": PackedByteArray("AbYVSAXvhpwBthVIBe+R0QG2FUgF7/LiCjobEYe/VcAKOhsRh78D7gAAl3sIWmbfAACXewhaL8///+pZq4jNw/ZnAAAzI3Xi9mcAADMjrfMvtI2BAACL+i+0jYEAALH2wEb7nP//CdXARvuc//+x2YFL//9mssjSgUv//2ayNN2BS///ZrLt42r2gt+VrbniWEsfSfAIG93ODpfjATxLfcHSWvPM16/JfIfQ8w87+zEFOjFdw1y6Q048vTRWTdkk/fxx5Kb+s+Rf5042heBNLI2FP7yNMbUS")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3hvjd"]
+radius = 0.1
+
+[node name="Gib" instance=ExtResource("1_ty01b")]
+collision_layer = 0
+physics_material_override = SubResource("PhysicsMaterial_2mxq0")
+
+[node name="Cube" parent="." index="0"]
+layers = 2
+mesh = SubResource("ArrayMesh_e06rq")
+
+[node name="Blood" parent="." index="1" instance=ExtResource("2_u8grx")]
+emitting = false
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="2"]
+shape = SubResource("SphereShape3D_3hvjd")
+
+[node name="Shadow" parent="." index="3" instance=ExtResource("3_6fj27")]

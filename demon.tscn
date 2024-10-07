@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://7ngy02eiu3q5"]
+[gd_scene load_steps=17 format=3 uid="uid://7ngy02eiu3q5"]
 
 [ext_resource type="PackedScene" uid="uid://dpvvy4rv2x7br" path="res://blend/Demon.blend" id="1_b2umy"]
 [ext_resource type="PackedScene" uid="uid://bms6yjxbsslej" path="res://effect/shadow.tscn" id="2_ofe71"]
@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://c3a14vui73d6x" path="res://demon/sfx/scream_3.wav" id="5_500np"]
 [ext_resource type="AudioStream" uid="uid://djsx8bhkg5ce8" path="res://demon/sfx/scream_4.wav" id="6_qx2av"]
 [ext_resource type="AudioStream" uid="uid://xckyx1x4cypf" path="res://demon/sfx/step.wav" id="8_8ay0s"]
+[ext_resource type="PackedScene" uid="uid://d0iw33lj7du8y" path="res://effect/blood.tscn" id="9_vovvw"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tww4j"]
 radius = 0.4
@@ -131,7 +132,14 @@ interpolate = false
 process_material = SubResource("ParticleProcessMaterial_7o4ig")
 draw_pass_1 = SubResource("SphereMesh_ius2o")
 
-[node name="Pivot" type="Marker3D" parent="." index="8"]
+[node name="Blood" parent="." index="8" instance=ExtResource("9_vovvw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+emitting = false
+one_shot = true
+randomness = 1.0
+fixed_fps = 24
+
+[node name="Pivot" type="Marker3D" parent="." index="9"]
 visible = false
 
 [node name="Camera3D" type="Camera3D" parent="Pivot" index="0"]

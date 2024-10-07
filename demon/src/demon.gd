@@ -11,6 +11,8 @@ var hp = 3
 var speed = 2.0
 var stunned = false
 
+var gib = preload("res://item/gib.tscn")
+
 func _physics_process(delta):
 	if dead or stunned:
 		return
@@ -74,6 +76,7 @@ func hit(n):
 	else:
 		$Invulnerability.start()
 	$Hurt.play()
+	$Blood.emitting = true
 	hp -= n
 	if hp <= 0:
 		die()
@@ -85,7 +88,10 @@ func die():
 	dead = true
 	died.emit()
 
+	$Blood.emitting = true
 	$AnimationPlayer.play("Death")
+
+	add_child(gib.instantiate())
 
 func stun():
 	stunned = true
